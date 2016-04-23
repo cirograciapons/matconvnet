@@ -1,10 +1,11 @@
 %% Experiment with the cnn_mnist_fc_bnorm
 
+%train two networks for regression
 [net_bn, info_bn] = regression(...
-  'expDir', 'data/mnist-bnorm', 'batchNormalization', true);
+  'expDir', 'data/regression', 'batchNormalization', true);
 
 [net_fc, info_fc] = regression(...
-  'expDir', 'data/mnist-baseline', 'batchNormalization', false);
+  'expDir', 'data/regression', 'batchNormalization', false);
 
 figure(1) ; clf ;
 subplot(1,2,1) ;

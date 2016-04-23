@@ -79,6 +79,9 @@ if isstr(opts.errorFunction)
     case 'none'
       opts.errorFunction = @error_none ;
       hasError = false ;
+    case 'regression'
+      opts.errorFunction = @error_regression ;
+      if isempty(opts.errorLabels), opts.errorLabels = {'regressionMse'} ; end
     case 'multiclass'
       opts.errorFunction = @error_multiclass ;
       if isempty(opts.errorLabels), opts.errorLabels = {'top1err', 'top5err'} ; end
@@ -181,6 +184,12 @@ for epoch=start+1:opts.numEpochs
     print(1, modelFigPath, '-dpdf') ;
   end
 end
+% -------------------------------------------------------------------------
+function err = error_regression(opts, labels, res)
+% -------------------------------------------------------------------------
+predictions = gather(res(end-1).x) ;
+error = bsxfun(@minus, predictions, labels) ;
+err = mean(sum( sum( error.^2, 1 ), 2 ) ) ;
 
 % -------------------------------------------------------------------------
 function err = error_multiclass(opts, labels, res)
