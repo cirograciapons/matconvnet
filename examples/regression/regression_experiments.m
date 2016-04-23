@@ -9,16 +9,16 @@
 
 figure(1) ; clf ;
 subplot(1,2,1) ;
-semilogy(info_fc.val.objective', 'o-') ; hold all ;
-semilogy(info_bn.val.objective', '+--') ;
+semilogy(cat(1,info_fc.val(:).objective), 'o-') ; hold all ;
+semilogy(cat(1,info_bn.val(:).objective)', '+--') ;
 xlabel('Training samples [x 10^3]'); ylabel('energy') ;
 grid on ;
 h=legend('BSLN', 'BNORM') ;
 set(h,'color','none');
 title('objective') ;
 subplot(1,2,2) ;
-plot(info_fc.val.error', 'o-') ; hold all ;
-plot(info_bn.val.error', '+--') ;
+plot(cat(1,info_fc.val.regressionMse)', 'o-') ; hold all ;
+plot(cat(1,info_bn.val.regressionMse)', '+--') ;
 h=legend('BSLN-val','BSLN-val-5','BNORM-val','BNORM-val-5') ;
 grid on ;
 xlabel('Training samples [x 10^3]'); ylabel('error') ;
