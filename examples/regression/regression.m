@@ -86,12 +86,12 @@ function imdb = genRegressionData(opts)
 
 %Generate multinomial regression data 
 x = randn(10,50000);
-weights = randn(1,10);
+weights = randn(2,10);
 bias = randn(1);
-y = weights*x + bias;
+y = weights*x.^2 + bias;
 
-trainTest = ones( size(y));
-idx = randsample( numel(y), round( numel(y) * 0.3));
+trainTest = ones( 1,size(y,2));
+idx = randsample( size(y,2), round( size(y,2) * 0.3));
 trainTest(idx) = 3;
 
 imdb.images.set = trainTest ;
@@ -99,7 +99,10 @@ imdb.meta.sets = {'train', 'val', 'test'} ;
 imdb.images.data = single( permute( x, [4 1 3 2]));
 
 imdb.images.data_mean = mean( imdb.images.data(:,:,:,trainTest == 1), 4);
-imdb.images.labels = reshape( y, 1, 1, 1, numel(y) );
+imdb.images.data = bsxfun(@minus, imdb.images.data, single(imdb.images.data_mean));
+
+%for Pdist loss :objective samples must have the size of the output tensor
+imdb.images.labels = reshape( y, 1, 1, size(y,1), size(y,2) );
 
 if ~exist(opts.dataDir, 'dir')
   mkdir(opts.dataDir) ;

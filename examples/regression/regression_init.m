@@ -10,11 +10,15 @@ rng(0) ;
 f=1/100 ;
 net.layers = {} ;
 net.layers{end+1} = struct('type', 'conv', ...
-                           'weights', {{f*randn(1,10,1,1, 'single'), zeros(1, 1, 'single')}}, ...
+                           'weights', {{f*randn(1,10,1,10, 'single'), zeros(1, 10, 'single')}}, ...
                            'stride', 1, ...
                            'pad', 0) ;
-%TO ACT AS LOSS aggregate must be set to 1                       
-net.layers{end+1} = struct('type', 'pdist','aggregate',1) ;
+net.layers{end+1} = struct('type', 'conv', ...
+                           'weights', {{f*randn(1,1,10,2, 'single'), zeros(1, 2, 'single')}}, ...
+                           'stride', 1, ...
+                           'pad', 0) ;                       
+%TO ACT AS LOSS aggregate must be set to 1
+net.layers{end+1} = struct('type', 'pdist','aggregate',1);
 
 % optionally switch to batch normalization
 if opts.batchNormalization
@@ -24,7 +28,7 @@ end
 % Meta parameters
 net.meta.inputSize = [1 1 1] ;
 net.meta.trainOpts.learningRate = 0.001 ;
-net.meta.trainOpts.numEpochs = 20 ;
+net.meta.trainOpts.numEpochs = 5 ;
 net.meta.trainOpts.batchSize = 100 ;
 
 % Fill in defaul values

@@ -189,7 +189,7 @@ function err = error_regression(opts, labels, res)
 % -------------------------------------------------------------------------
 predictions = gather(res(end-1).x) ;
 error = bsxfun(@minus, predictions, labels) ;
-err = mean(sum( sum( error.^2, 1 ), 2 ) ) ;
+err = mean(sum( sum( sum( error.^2, 1 ), 2 ), 3) ) ;
 
 % -------------------------------------------------------------------------
 function err = error_multiclass(opts, labels, res)
