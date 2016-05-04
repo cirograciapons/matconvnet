@@ -205,7 +205,7 @@ opts.snapshot        = 10;
 opts.sync            = true;
 opts.test_interval   = 10;
 opts.train           = [];
-opts.useGpu          = true;
+opts.useGpu          = false;
 opts.val             = [];
 opts.weightDecay     = 5e-4;
 
@@ -272,7 +272,7 @@ end
 function [im, labels] = getMnistAutoencoderBatch(imdb, batch)
 % -------------------------------------------------------------------------
 
-im     = imdb.images.data(:, :, :, batch);
+im     = single(imdb.images.data(:, :, :, batch));
 labels = im;
 
 end

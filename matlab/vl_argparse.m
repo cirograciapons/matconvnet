@@ -96,7 +96,9 @@ while ai <= numel(args)
   p = find(strcmpi(param, optNames)) ;
   if numel(p) ~= 1
     if nargout == 1
-      error('Unknown parameter ''%s''', param) ;
+      warning('Unknown parameter ''%s''', param) ;
+      ai = ai + 2;
+      continue;
     else
       keep([ai,ai+1]) = true ;
       ai = ai + 2 ;

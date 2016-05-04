@@ -5,8 +5,8 @@ clear all;
 clc;
 
 %%
-
-run('~/GitHub/umuguc/matconvnet/matlab/vl_setupnn');
+%LETS ASSUME WE ALREADY CALL THE SETUP
+run('../../matlab/vl_setupnn');
 
 %%
 

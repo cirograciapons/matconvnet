@@ -100,7 +100,7 @@ imdb.images.data = single( permute( x, [4 1 3 2]));
 
 imdb.images.data_mean = mean( imdb.images.data(:,:,:,trainTest == 1), 4);
 imdb.images.data = bsxfun(@minus, imdb.images.data, single(imdb.images.data_mean));
-
+%!WARNING 
 %for Pdist loss :objective samples must have the size of the output tensor
 imdb.images.labels = reshape( y, 1, 1, size(y,1), size(y,2) );
 
